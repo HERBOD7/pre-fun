@@ -1,0 +1,111 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <style>
+
+            body {
+                height: 100vh;
+                text-align: center;
+                background-color: black;
+            }
+            
+            span {
+                color: white;
+                font-weight: bold;
+                font-size: 20px;
+            }
+            .container {
+              display: flex;
+              align-items: center;
+              justify-content: center; 
+              height: 100%;
+              flex-direction: column;
+            }
+
+            .btns{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-wrap: wrap;
+                
+            }
+            
+            .key{
+                border: 1px solid black;
+                border-radius: 5px;
+                margin: 1rem;
+                transition: all .07s;
+                padding: 10px 15px;
+                display: flex;
+                align-content: center;
+                justify-content: center;
+                flex-direction: column;
+                min-width: 25px;
+                border-color: rgb(255, 81, 0);
+
+                
+            }
+
+            .playing {
+                transform: scale(1.1);
+                box-shadow: 255,255,0,0 rgba(rgb(255, 38, 0), rgb(255, 72, 0), rgb(255, 60, 0), alpha)
+
+            }
+
+            kbd {
+                display: block;
+                font-size: 20px;
+                color: white;
+            }
+
+            .sound {
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: coral;
+            }
+        </style>
+        <meta charset="UTF-8">
+    </head>
+
+    <body>
+        <div class="container">
+            <span>press key</span>
+            <div class="btns">
+                <div data-key="65" class="key">
+                    <kbd>a</kbd>
+                    <span class="sound">clap</span>
+                </div>
+                <div data-key="83" class="key">
+                    <kbd>s</kbd>
+                    <span class="sound">kick</span>
+                </div>
+            </div>
+        </div>
+
+        <audio data-key="65" src="./sound/clap.wav"></audio>
+        <audio data-key="83" src="./sound/kick.wav"></audio>
+
+        <script>
+                
+                function playsound(e){
+                    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+                    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+                    if(!audio) return;
+                    audio.currentTime = 0;
+                    audio.play();
+                    key.classList.add('playing');
+                }
+                
+                function removeTransition(e){
+                    if(e.propertyName !== 'transform') return;
+                    this.classList.remove('playing');
+                }
+
+                const key = document.querySelectorAll('.key');
+                key.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+                window.addEventListener('keydown',playsound);
+        </script>
+
+    </body>
+</html>

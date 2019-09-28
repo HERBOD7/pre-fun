@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <script>
+            const msg = new SpeechSynthesisUtterance;
+            let voices = [];
+            const voicesDropdown = document.querySelector('[name="voice"]');
+            const option = document.querySelectorAll('[type="range"], [name="text"]');
+            const speakButton = document.querySelector('#speak');
+            const stopButton = document.querySelector('#stop');
+            msg.text = document.querySelector('[name="text"]').value;
+
+            function populationVoices(){
+                voices = this.getVoices();
+                voicesDropdown.innerHTML = voices
+                .map(voice => `<option value="${voice.name}">${voice.name} (${voice.lang})</option>`)
+                .join('');
+            }
+
+            function setVoice(){
+                msg.voice = voice.find(voice => voice.name === this.value);
+                toggle();
+            }
+
+            function toggle(startOver = true){
+                SpeechSynthesis.cancel();
+                if(startOver){
+                    speechSynthesis.speak(msg);
+                }
+            }
+
+            function setOption(){
+                msg[this.name] = this.value;
+                toggle();
+            }
+
+            speechSynthesis.addEventListener('voiceschanged', populationVoices);
+            voicesDropdown.addEventListener('change', setVoice);
+            option.forEach(option => option.addEventListener('change', setOption));
+            speakButton.addEventListener('click', toggle);
+            stopButton.addEventListener('click', () => toggle(false));
+        </script>
+    </body>
+</html>

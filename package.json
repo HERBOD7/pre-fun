@@ -1,0 +1,19 @@
+{
+  "name": "fun",
+  "version": "1.0.0",
+  "description": "1.html==>      transitionend => when transition will be finished, then runfunction     key => can set every thing with data-... that can access ti it, similar attr     .play() => method that play audio file     keydown => when key be down",
+  "main": "14.js",
+  "scripts": {
+    "start": "http-server -a localhost -p 8000 -c-1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/HERBOD7/fun.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/HERBOD7/fun/issues"
+  },
+  "homepage": "https://gitlab.com/HERBOD7/fun#readme"
+}

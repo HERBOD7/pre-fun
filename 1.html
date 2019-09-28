@@ -1,0 +1,141 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+            <link rel="stylesheet" href="https://api.fontgraphy.ir/css?family=morvarid">
+        <style>
+
+            body {
+                height: 100vh;
+                text-align: center;
+            }
+            
+            .title{
+                font-family: 'morvarid', sans-serif;
+            }
+
+            .container {
+              display: flex;
+              align-items: center;
+              justify-content: center; 
+              height: 100%;
+              flex-direction: column;
+            }
+
+            .btns{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .key{
+                border: 1px solid black;
+                border-radius: 5px;
+                margin: 1rem;
+                transition: all .07s;
+                padding: 10px 15px;
+                display: flex;
+                align-content: center;
+                justify-content: center;
+                flex-direction: column;
+                min-width: 25px;
+                
+            }
+
+            .playing {
+                transform: scale(1.1);
+                border-color: red;
+
+            }
+
+            kbd {
+                display: block;
+                font-size: 20px;
+            }
+
+            .sound {
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: coral;
+            }
+        </style>
+        <meta charset="UTF-8">
+    </head>
+
+    <body>
+        <div class="container">
+            <span class="title">پخش موسیفی</span>
+            <div class="btns">
+                <div data-key="65" class="key">
+                    <kbd>a</kbd>
+                    <span class="sound">aa</span>
+                </div>
+                <div data-key="83" class="key">
+                    <kbd>s</kbd>
+                    <span class="sound">ss</span>
+                </div>
+                <div data-key="68" class="key">
+                        <kbd>d</kbd>
+                        <span class="sound">ss</span>
+                </div>
+                <div data-key="70" class="key">
+                        <kbd>f</kbd>
+                        <span class="sound">ss</span>
+                </div>
+                <div data-key="71" class="key">
+                        <kbd>g</kbd>
+                        <span class="sound">ss</span>
+                </div>
+                <div data-key="72" class="key">
+                        <kbd>h</kbd>
+                        <span class="sound">ss</span>
+                </div>
+                <div data-key="74" class="key">
+                        <kbd>j</kbd>
+                        <span class="sound">ss</span>
+                </div>
+                <div data-key="75" class="key">
+                        <kbd>k</kbd>
+                        <span class="sound">ss</span>
+                </div>
+                <div data-key="76" class="key">
+                        <kbd>l</kbd>
+                        <span class="sound">ss</span>
+                </div>
+            </div>
+        </div>
+
+        <audio data-key="65" src="./sound/clap.wav"></audio>
+        <audio data-key="83" src="./sound/kick.wav"></audio>
+        <audio data-key="68" src=""></audio>
+        <audio data-key="70" src=""></audio>
+        <audio data-key="71" src=""></audio>
+        <audio data-key="72" src=""></audio>
+        <audio data-key="74" src=""></audio>
+        <audio data-key="75" src=""></audio>
+        <audio data-key="76" src=""></audio>
+
+        <script>
+                
+                function playsound(e){
+                    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+                    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+                    if(!audio) return;
+                    audio.currentTime = 0;
+                    audio.play();
+                    key.classList.add('playing');
+                }
+                
+                function removeTransition(e){
+                    if(e.propertyName !== 'transform') return;
+                    this.classList.remove('playing');
+                }
+
+                const key = document.querySelectorAll('.key');
+                key.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+                window.addEventListener('keydown',playsound);
+        </script>
+
+    </body>
+</html>

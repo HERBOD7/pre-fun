@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <p onclick="green()">aaaa</p>
+
+        <script>
+            const pugs = [{name: 'sdf', age: 3}, {name: 'eewew', age: 2}, {name:'asdaa', age:5}];
+        function green(){
+            p = document.querySelector('p');
+            p.style.color = 'red';
+        }   
+
+        console.log('aaaaaa');
+
+        // %s is var similar es6 that can set it in next item
+        console.log('this is %s', 'alalalallala');
+        
+        // %c is a var that can set style
+        console.log('%c this is a sdfsdfsdf', 'font-size: 10px ; background-color: blue')
+
+        // warning
+        console.warn('noooooooo');
+
+        //error
+        console.error('is nor true');
+
+        //info
+        console.info('about aaaa');
+
+        // for testing and it check boolean first arg is compare boolean and second is message
+        console.assert(1===2, 'is true');
+
+        //clear console
+        //console.clear();
+
+        // view dom elem
+        p = document.querySelector('p');
+        console.dir(p);
+
+        // show console in group of item
+        pugs.forEach(pug => {
+            console.groupCollapsed(`${pug.name}`);
+            console.log(`name id ${pug.name}`);
+            console.log(`age is ${pug.age}`);
+            console.groupEnd(`${pug.name}`);
+        });
+
+        // show count of console elem
+        console.count('aaaa');
+        console.count('bbbbbb');
+        console.count('aaaa');
+        console.count('aaaa');
+        console.count('aaaa');
+        console.count('bbbbbb');
+        console.count('bbbbbb');
+        console.count('bbbbbb');
+
+
+        // show time of process
+        //console.time('fetch');
+        //fetch('https://api.github.com/user/wesbos').then(data => data.json()).then(data => {
+        //     console.timeEnd('fetch');
+        //});
+
+        console.table(pugs);
+
+        
+        </script>
+    </body>
+</html>

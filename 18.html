@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <ul>
+            <li data-time="3:20">video 1</li>
+            <li data-time="2:40">video 1</li>
+            <li data-time="4:10">video 1</li>
+            <li data-time="56:30">video 1</li>
+            <li data-time="12:20">video 1</li>
+            <li data-time="32:20">video 1</li>
+            <li data-time="31:20">video 1</li>
+            <li data-time="3:50">video 1</li>
+            <li data-time="6:50">video 1</li>
+            <li data-time="2:02">video 1</li>
+        </ul>
+
+        <script>
+            const nodeTime = Array.from(document.querySelectorAll('[data-time]'));
+            console.log(nodeTime);
+            const seconds = nodeTime
+                .map(node => node.dataset.time)
+                .map(timeCode => {
+                    const [mins, se] = timeCode.split(':').map(parseFloat);
+                    return (mins * 60) + se;
+                }).reduce((total, vidSecond) => total + vidSecond);
+
+                let secondLeft = seconds;
+                const hours = Math.floor(secondLeft / 3600);
+                secondLeft = secondLeft % 3600;
+                const mins = Math.floor(secondLeft / 60);
+                secondLeft = secondLeft % 60;
+
+                console.log(mins, hours, secondLeft);
+
+
+        </script>
+    </body>
+</html>
