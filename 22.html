@@ -104,8 +104,8 @@
         document.body.append(highlight);
 
         function highlightLink() {
-            const linkCoords = this.getBoundingClintRec();
-            const coor = {
+            const linkCoords = this.getBoundingClientRect();
+            const coords = {
                 width: linkCoords.width,
                 height: linkCoords.height,
                 top: linkCoords.top + window.scrollY,

@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-    </head>
-    <body>
-        <style>
-            body {
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <style>
+        body {
             margin: 0;
             font-family: sans-serif;
             background-size: cover;
             display: flex;
             align-items: center;
             min-height: 100vh;
-            }
-            #bands {
+        }
+
+        #bands {
             list-style: inside square;
             font-size: 20px;
             background: white;
@@ -21,36 +24,38 @@
             margin: auto;
             padding: 0;
             box-shadow: 0 0 0 20px rgba(0, 0, 0, 0.05);
-            }
-            
-            #bands li {
+        }
+
+        #bands li {
             border-bottom: 1px solid #efefef;
             padding: 20px;
-            }
-            
-            #bands li:last-child {
+        }
+
+        #bands li:last-child {
             border-bottom: 0;
-            }
-            a {
+        }
+
+        a {
             color: #ffc600;
             text-decoration: none;
-            }
-        </style>
+        }
+    </style>
 
-        <ul id="bands">
-        </ul>
-        
-        <script>
-            const bands = ['AN AAAALALALA', 'A eeoeoeoeoe', 'the akajakakaa', 'oh koaoaoa'];
-            
-            function strip(bandName){
-                return bandName.replace(/^(a |the |an | oh )/i, '').trim();
-            }
+    <ul id="bands">
+    </ul>
 
-            const  sortedBands = bands.sort((a,b) => strip(a) > strip(b) ? 1 : -1);
+    <script>
+        const bands = ['AN AAAALALALA', 'A eeoeoeoeoe', 'the akajakakaa', 'oh koaoaoa'];
 
-            document.querySelector('#bands').innerHTML = sortedBands.map(band =>`<li>${band}</li>`).join('')
-            
-        </script>
-    </body>
+        function strip(bandName) {
+            return bandName.replace(/^(a |the |an | oh )/i, '').trim();
+        }
+
+        const sortedBands = bands.sort((a, b) => strip(a) > strip(b) ? 1 : -1);
+
+        document.querySelector('#bands').innerHTML = sortedBands.map(band => `<li>${band}</li>`).join('')
+
+    </script>
+</body>
+
 </html>
