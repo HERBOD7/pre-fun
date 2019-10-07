@@ -1,114 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Get User Media Code Along!</title>
+    <meta charset="utf-8">
 </head>
 
 <body>
-    <style>
-        html {
-            box-sizing: border-box;
-        }
-
-        *,
-        *:before,
-        *:after {
-            box-sizing: inherit;
-        }
-
-        html {
-            font-size: 10px;
-            background: #ffc600;
-        }
-
-        .photobooth {
-            background: white;
-            max-width: 150rem;
-            margin: 2rem auto;
-            border-radius: 2px;
-        }
-
-        /*clearfix*/
-        .photobooth:after {
-            content: '';
-            display: block;
-            clear: both;
-        }
-
-        .photo {
-            width: 100%;
-            float: left;
-        }
-
-        .player {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 200px;
-        }
-
-        .strip {
-            padding: 2rem;
-        }
-
-        .strip img {
-            width: 100px;
-            overflow-x: scroll;
-            padding: 0.8rem 0.8rem 2.5rem 0.8rem;
-            box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-            background: white;
-        }
-
-        .strip a:nth-child(5n+1) img {
-            transform: rotate(10deg);
-        }
-
-        .strip a:nth-child(5n+2) img {
-            transform: rotate(-2deg);
-        }
-
-        .strip a:nth-child(5n+3) img {
-            transform: rotate(8deg);
-        }
-
-        .strip a:nth-child(5n+4) img {
-            transform: rotate(-11deg);
-        }
-
-        .strip a:nth-child(5n+5) img {
-            transform: rotate(12deg);
-        }
-    </style>
-    <div class="photobooth">
-        <div class="controls">
-            <button onClick="takePhoto()">Take Photo</button>
-        <div class="rgb">
-        <label for="rmin">Red Min:</label>
-        <input type="range" min=0 max=255 name="rmin">
-        <label for="rmax">Red Max:</label>
-        <input type="range" min=0 max=255 name="rmax">
-        <br>
-        <label for="gmin">Green Min:</label>
-        <input type="range" min=0 max=255 name="gmin">
-        <label for="gmax">Green Max:</label>
-        <input type="range" min=0 max=255 name="gmax">
-        <br>
-        <label for="bmin">Blue Min:</label>
-        <input type="range" min=0 max=255 name="bmin">
-        <label for="bmax">Blue Max:</label>
-        <input type="range" min=0 max=255 name="bmax">
-      </div>
-        </div>
-
+    <div class="iphone-x">
         <canvas class="photo"></canvas>
         <video class="player"></video>
         <div class="strip"></div>
+        <button onClick="takePhoto()">Take Photo</button>
+        <div class="strip"></div>
     </div>
-
-    <audio class="snap" src="http://wesbos.com/demos/photobooth/snap.mp3" hidden></audio>
-
+    <audio class="snap" src="" hidden></audio>
     <script>
         const video = document.querySelector('.player');
         const canvas = document.querySelector('.photo');
@@ -120,6 +25,13 @@
             navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                 .then(localMediaStream => {
                     console.log(localMediaStream);
+
+                    //  DEPRECIATION : 
+                    //       The following has been depreceated by major browsers as of Chrome and Firefox.
+                    //       video.src = window.URL.createObjectURL(localMediaStream);
+                    //       Please refer to these:
+                    //       Depreceated  - https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL
+                    //       Newer Syntax - https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/srcObject
 
                     video.srcObject = localMediaStream;
                     video.play();
@@ -142,8 +54,8 @@
                 // mess with them
                 // pixels = redEffect(pixels);
 
-                pixels = rgbSplit(pixels);
-                // ctx.globalAlpha = 0.8;
+                //pixels = rgbSplit(pixels);
+                ctx.globalAlpha = 0.8;
 
                 // pixels = greenScreen(pixels);
                 // put them back
@@ -215,6 +127,68 @@
         video.addEventListener('canplay', paintToCanvas);
     </script>
 
+
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            background: #f4f6fc;
+            height: 100%;
+        }
+
+        .iphone-x {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            margin: 40px auto;
+            width: 400px;
+            height: 90%;
+            background-color: #F8C427;
+            background-image: linear-gradient(60deg, #F4511F 1%, #F8C427 100%);
+            border-radius: 40px;
+            box-shadow: 0px 0px 0px 11px #1f1f1f, 0px 0px 0px 13px #191919, 0px 0px 0px 20px #111;
+        }
+
+        .iphone-x:before,
+        :after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .photo{
+            height: 100%;
+            width: 100%;
+        }
+        
+        video {
+            position: absolute;
+            height: 100px;
+            width: 100px;
+            right: 133px;
+            border-radius: 0 40px 0 0;
+            border: 1px solid red;
+        }
+        
+        button {
+            outline: unset;
+            height: 68px;
+            width: 67px;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            position: absolute;
+            bottom: 70px;
+        }
+
+        canvas{
+            border-radius: 40px;
+        }
+    </style>
 </body>
 
 </html>
