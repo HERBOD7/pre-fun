@@ -4,7 +4,7 @@
   "description": "1.html==>      transitionend => when transition will be finished, then runfunction     key => can set every thing with data-... that can access ti it, similar attr     .play() => method that play audio file     keydown => when key be down",
   "main": "14.js",
   "scripts": {
-    "start": "http-server -a localhost -p 3000 -c-1"
+    "start": "http-server -a localhost -p 8081 -c-1"
   },
   "repository": {
     "type": "git",
