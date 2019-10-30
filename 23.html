@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <title>Speech Synthesis</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="./font/style.css">
 </head>
-
+ <!-- ToDo: name is Listen to book. add upload file and listen to it ('https://www.html5rocks.com/en/tutorials/file/dndfiles/')
+ get file from input and read it js -->
 <body>
   <style>
     html {
@@ -19,147 +23,222 @@
     }
 
     body {
-      margin: 0;
-      padding: 0;
-      font-family: sans-serif;
-      background-color: #3BC1AC;
+        overflow: unset;
+    }
+
+
+    .container {
       display: flex;
-      min-height: 100vh;
+        justify-content: center;
+        width: 100%;
+        margin-top: 100px;
+        height: 80vh;
+    }
+
+
+    #byte_content {
+        border: none;
+        resize: unset;
+        font-family: 'Georgia Regular';
+        width: 40%;
+        height: 100%;
+        outline: none;
+        font-size: 25px;
+        color: #313131;
+        overflow-x: unset;
+    }
+
+    #byte_content::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    #byte_content::-webkit-scrollbar-thumb {
+        background-color: #607D8B;
+        border-radius: 15px;
+    }
+
+    #byte_content::placeholder {
+        font-family: 'Georgia Bold';
+        color: lightgray;
+        font-size: 25px;
+    }
+
+    .option {
+      font-family    : 'Roboto', sans-serif;
+      background     : #F2F2F2;
+      border-radius  : 10px;
+      display: flex  ;
+      flex-direction : column;
+      align-items    : center;
+      margin-left    : 15px;
+        padding      : 20px;
+        height       : 300px;
+        max-width: 250px;
+    }
+
+    .controll-buttons {
+      display: flex;
       align-items: center;
-
-      background-image:
-        radial-gradient(circle at 100% 150%, #3BC1AC 24%, #42D2BB 25%, #42D2BB 28%, #3BC1AC 29%, #3BC1AC 36%, #42D2BB 36%, #42D2BB 40%, transparent 40%, transparent),
-        radial-gradient(circle at 0 150%, #3BC1AC 24%, #42D2BB 25%, #42D2BB 28%, #3BC1AC 29%, #3BC1AC 36%, #42D2BB 36%, #42D2BB 40%, transparent 40%, transparent),
-        radial-gradient(circle at 50% 100%, #42D2BB 10%, #3BC1AC 11%, #3BC1AC 23%, #42D2BB 24%, #42D2BB 30%, #3BC1AC 31%, #3BC1AC 43%, #42D2BB 44%, #42D2BB 50%, #3BC1AC 51%, #3BC1AC 63%, #42D2BB 64%, #42D2BB 71%, transparent 71%, transparent),
-        radial-gradient(circle at 100% 50%, #42D2BB 5%, #3BC1AC 6%, #3BC1AC 15%, #42D2BB 16%, #42D2BB 20%, #3BC1AC 21%, #3BC1AC 30%, #42D2BB 31%, #42D2BB 35%, #3BC1AC 36%, #3BC1AC 45%, #42D2BB 46%, #42D2BB 49%, transparent 50%, transparent),
-        radial-gradient(circle at 0 50%, #42D2BB 5%, #3BC1AC 6%, #3BC1AC 15%, #42D2BB 16%, #42D2BB 20%, #3BC1AC 21%, #3BC1AC 30%, #42D2BB 31%, #42D2BB 35%, #3BC1AC 36%, #3BC1AC 45%, #42D2BB 46%, #42D2BB 49%, transparent 50%, transparent);
-      background-size: 100px 50px;
+      justify-content: space-between;
     }
 
-    .voiceinator {
-      padding: 2rem;
-      width: 50rem;
-      margin: 0 auto;
-      border-radius: 1rem;
-      position: relative;
-      background: white;
-      overflow: hidden;
-      z-index: 1;
-      box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+    #stop , #speak {
+        background-color: #607D8B;
+        border-radius: 4px;
+        min-height: 35px;
+        min-width: 70px;
+        background-position: center;
+        background-repeat: no-repeat;
+        /*background-size: cover;*/
+        color: white;
+        outline: none;
+        border: none;
     }
 
-    h1 {
-      width: calc(100% + 4rem);
-      margin: -2rem 0 2rem -2rem;
-      padding: .5rem;
-      background: #ffc600;
-      border-bottom: 5px solid #F3C010;
-      text-align: center;
-      font-size: 5rem;
-      font-weight: 100;
-      font-family: 'Pacifico', cursive;
-      text-shadow: 3px 3px 0 #F3C010;
+    #stop {
+      background-image: url("./svg/pause-24p.svg");
+        margin-left: 10px;
+
     }
 
-    .voiceinator input,
-    .voiceinator button,
-    .voiceinator select,
-    .voiceinator textarea {
-      width: 100%;
-      display: block;
-      margin: 10px 0;
-      padding: 10px;
-      border: 0;
-      font-size: 2rem;
-      background: #F7F7F7;
-      outline: 0;
+    #stop:hover, #speak:hover {
+      background-color: #C0D2DB;
     }
 
-    textarea {
-      height: 20rem;
+    #speak {
+      background-image: url("./svg/play_arrow-24p.svg");
     }
 
-    input[type="select"] {}
-
-    .voiceinator button {
-      background: #ffc600;
-      border: 0;
-      width: 49%;
-      float: left;
-      font-family: 'Pacifico', cursive;
-      margin-bottom: 0;
-      font-size: 2rem;
-      border-bottom: 5px solid #F3C010;
-      cursor: pointer;
-      position: relative;
+    #files {
+        margin-top: 30px;
+        visibility: inherit;
     }
 
-    .voiceinator button:active {
-      top: 2px;
+    #files:before {
+        content: 'UPLOAD FILE TO READ';
+        background: #607D8B;
+        border-radius: 4px;
+        color: white;
+        width: 12%;
+        padding: 10px;
+        position: absolute;
+        font-weight: bold;
+        margin-left: 15px;
+
     }
 
-    .voiceinator button:nth-of-type(1) {
-      margin-right: 2%;
+    .format {
+        color: grey;
+        font-size: 10px;
+        margin-top: 17px;
+        width: 100%;
+        text-align: left;
     }
+
   </style>
-  <div class="voiceinator">
 
-    <h1>The Voiceinator 5000</h1>
+  <div class="container">
 
-    <select name="voice" id="voices">
-      <option value="">Select A Voice</option>
-    </select>
+<!--    <h1 class="title">Listen to book</h1>-->
+    <textarea name="text" id="byte_content" placeholder="Type here to play..."></textarea>
+    <div class="option">
+<!--      <label for="rate">Rate:</label>-->
+<!--      <input name="rate" type="range" min="0" max="3" value="1" step="0.1">-->
 
-    <label for="rate">Rate:</label>
-    <input name="rate" type="range" min="0" max="3" value="1" step="0.1">
+<!--      <label for="pitch">Pitch:</label>-->
+<!--      <input name="pitch" type="range" min="0" max="2" step="0.1">-->
 
-    <label for="pitch">Pitch:</label>
-
-    <input name="pitch" type="range" min="0" max="2" step="0.1">
-    <textarea name="text">Hello! I love JavaScript 👍</textarea>
-    <button id="stop">Stop!</button>
-    <button id="speak">Speak</button>
+<!--      <select name="voice" id="voices">-->
+<!--        <option value="">Select A language</option>-->
+<!--      </select>-->
+      <div class="controll-buttons">
+          <button id="speak"></button>
+          <button id="stop"></button>
+      </div>
+      <input type="file" id="files">
+    <span class="format">Formats like txt, pdf</span>
+<!--      <button class="readBytesButtons"></button>-->
+    </div>
 
   </div>
+
   <script>
-    const msg = new SpeechSynthesisUtterance;
+    const msg = new SpeechSynthesisUtterance();
     let voices = [];
     const voicesDropdown = document.querySelector('[name="voice"]');
-    const option = document.querySelectorAll('[type="range"], [name="text"]');
+    const options = document.querySelectorAll('[type="range"], [name="text"]');
     const speakButton = document.querySelector('#speak');
     const stopButton = document.querySelector('#stop');
     msg.text = document.querySelector('[name="text"]').value;
 
+
     function populateVoices() {
       voices = this.getVoices();
-      voicesDropdown.innerHTML = voices
-        .map(voice => `<option value="${voice.name}">${voice.name} (${voice.lang})</option>`)
-        .join('');
+      voicesDropdown.innerHTML = "en"
     }
-
     function setVoice() {
-      msg.voice = voice.find(voice => voice.name === this.value);
+      msg.voice = voices.find(voice => voice.name === this.value);
       toggle();
     }
-
     function toggle(startOver = true) {
-      SpeechSynthesis.cancel();
+      speechSynthesis.cancel();
       if (startOver) {
         speechSynthesis.speak(msg);
       }
     }
-
     function setOption() {
+      console.log(this.name, this.value);
       msg[this.name] = this.value;
       toggle();
     }
-
     speechSynthesis.addEventListener('voiceschanged', populateVoices);
     voicesDropdown.addEventListener('change', setVoice);
-    option.forEach(option => option.addEventListener('change', setOption));
+    options.forEach(option => option.addEventListener('change', setOption));
     speakButton.addEventListener('click', toggle);
-    //stopButton.addEventListener('click', () => toggle(false));
+    stopButton.addEventListener('click', () => toggle(false));
+    msg.onresume = function (event) {
+      console.log(event);
+    }
+
+
+    function readBlob(opt_startByte, opt_stopByte) {
+
+      var files = document.getElementById('files').files;
+      if (!files.length) {
+        alert('Please select a file!');
+        return;
+      }
+
+      var file = files[0];
+      var start = parseInt(opt_startByte) || 0;
+      var stop = parseInt(opt_stopByte) || file.size - 1;
+
+      var reader = new FileReader();
+
+      // If we use onloadend, we need to check the readyState.
+      reader.onloadend = function(evt) {
+        console.log(evt);
+        if (evt.target.readyState == FileReader.DONE) { // DONE == 2
+          document.getElementById('byte_content').innerHTML = evt.target.result;
+          msg.text = evt.target.result;
+        }
+      };
+
+      var blob = file.slice(start, stop + 1);
+      reader.readAsBinaryString(blob);
+    }
+
+    document.querySelector('.readBytesButtons').addEventListener('click', function(evt) {
+      if (evt.target.tagName.toLowerCase() == 'button') {
+        var startByte = evt.target.getAttribute('data-startbyte');
+        var endByte = evt.target.getAttribute('data-endbyte');
+        readBlob(startByte, endByte);
+      }
+    }, false);
+
+
   </script>
+
 </body>
 
 </html>
